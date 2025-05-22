@@ -9,6 +9,8 @@
 :root {
     --img-max-height: 150px;
     --main-img-max-height: 200px;
+    --mobile-img-height: 80px;
+    --mobile-main-img-height: 100px;
 }
 
 body {
@@ -294,6 +296,42 @@ button:hover {
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
+/* 设备方向特定样式 */
+.mobile-device.portrait-mode .seal-grid {
+    grid-template-areas: 
+        "guide"
+        "middle"
+        "push"
+        "desc"
+        "additional";
+    grid-template-columns: 1fr;
+}
+
+.mobile-device.landscape-mode .seal-grid {
+    grid-template-areas: 
+        "guide middle push"
+        "desc desc desc"
+        "additional additional additional";
+    grid-template-columns: 1fr 2fr 1fr;
+}
+
+.mobile-device.landscape-mode .middle-row {
+    flex-direction: column;
+    display: flex;
+}
+
+.mobile-device.landscape-mode .seal.main {
+    order: 1;
+}
+
+.mobile-device.landscape-mode .seal.challenge {
+    order: 2;
+}
+
+.mobile-device.landscape-mode .seal.support {
+    order: 3;
+}
+
 /* 图片懒加载样式 */
 img[data-src] {
     opacity: 0;
@@ -320,6 +358,7 @@ img[src] {
 }
 
 @media (max-width: 768px) {
+    /* 日期选择器样式 */
     .date-input {
         flex-direction: column;
         align-items: stretch;
@@ -339,24 +378,63 @@ img[src] {
         margin: 15px auto 0;
     }
     
+    /* 图腾布局 - 保持相对位置关系 */
+    .seal-grid {
+        display: grid;
+        grid-template-areas: 
+            "guide"
+            "middle"
+            "push"
+            "desc"
+            "additional";
+        gap: 15px;
+    }
+    
     .middle-row {
-        grid-template-columns: 1fr;
+        grid-area: middle;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 10px;
+    }
+    
+    .seal.guide {
+        grid-area: guide;
+        width: 50%;
+        margin: 0 auto;
+    }
+    
+    .seal.push {
+        grid-area: push;
+        width: 50%;
+        margin: 0 auto;
+    }
+    
+    .description-section {
+        grid-area: desc;
     }
     
     .additional-info {
-        grid-template-columns: 1fr;
+        grid-area: additional;
+        grid-template-columns: 1fr 1fr;
     }
     
-    .seal {
-        margin-bottom: 20px;
-    }
-    
+    /* 调整图腾大小 */
     .seal img {
-        max-height: 100px;
+        max-height: var(--mobile-img-height);
     }
     
     .seal.main img {
-        max-height: 120px;
+        max-height: var(--mobile-main-img-height);
+    }
+    
+    .seal {
+        padding: 10px;
+        margin-bottom: 0;
+    }
+    
+    .seal-name {
+        min-height: 30px;
+        font-size: 0.9rem;
     }
 }
 
@@ -366,7 +444,7 @@ img[src] {
     }
     
     .seal-name, .kin-info, .wave-info {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
     }
     
     .description-section {
@@ -379,6 +457,68 @@ img[src] {
     }
     
     .seal-grid {
+        gap: 10px;
+    }
+    
+    /* 极小屏幕上的更多优化 */
+    :root {
+        --mobile-img-height: 70px;
+        --mobile-main-img-height: 90px;
+    }
+    
+    .middle-row {
+        gap: 5px;
+    }
+    
+    .seal {
+        padding: 8px;
+    }
+    
+    .seal.main {
+        padding: 10px;
+    }
+    
+    .additional-info {
         gap: 15px;
+    }
+}
+
+/* 横屏模式优化 */
+@media (max-width: 768px) and (orientation: landscape) {
+    .seal-grid {
+        grid-template-areas: 
+            "guide middle push"
+            "desc desc desc"
+            "additional additional additional";
+        grid-template-columns: 1fr 2fr 1fr;
+    }
+    
+    .middle-row {
+        flex-direction: column;
+        display: flex;
+    }
+    
+    .seal.main {
+        order: 1;
+    }
+    
+    .seal.challenge {
+        order: 2;
+    }
+    
+    .seal.support {
+        order: 3;
+    }
+    
+    .seal.guide, .seal.push {
+        width: 100%;
+    }
+    
+    .description-section {
+        grid-column: 1 / -1;
+    }
+    
+    .additional-info {
+        grid-column: 1 / -1;
     }
 } 

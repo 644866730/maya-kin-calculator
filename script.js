@@ -601,14 +601,30 @@ document.addEventListener("DOMContentLoaded", function() {
 // 检测设备类型并调整交互方式
 function detectDeviceAndAdjust() {
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const isPortrait = window.innerHeight > window.innerWidth;
+    const screenWidth = window.innerWidth;
     
+    // 添加基础设备类
     if (isMobile) {
         // 为移动设备优化
         console.log('检测到移动设备，应用移动优化...');
+        document.body.classList.add('mobile-device');
         
-        // 移动设备上的图片尺寸预设
-        document.documentElement.style.setProperty('--img-max-height', '100px');
-        document.documentElement.style.setProperty('--main-img-max-height', '120px');
+        // 区分手机和平板
+        if (screenWidth < 768) {
+            document.body.classList.add('phone-device');
+        } else {
+            document.body.classList.add('tablet-device');
+        }
+        
+        // 区分横屏和竖屏
+        if (isPortrait) {
+            document.body.classList.add('portrait-mode');
+            document.body.classList.remove('landscape-mode');
+        } else {
+            document.body.classList.add('landscape-mode');
+            document.body.classList.remove('portrait-mode');
+        }
         
         // 对触摸设备添加特定的样式
         document.body.classList.add('touch-device');
@@ -627,6 +643,20 @@ function detectDeviceAndAdjust() {
                     this.classList.remove('active');
                 }, 3000);
             });
+        });
+        
+        // 监听屏幕方向变化
+        window.addEventListener('orientationchange', function() {
+            setTimeout(() => {
+                const isPortrait = window.innerHeight > window.innerWidth;
+                if (isPortrait) {
+                    document.body.classList.add('portrait-mode');
+                    document.body.classList.remove('landscape-mode');
+                } else {
+                    document.body.classList.add('landscape-mode');
+                    document.body.classList.remove('portrait-mode');
+                }
+            }, 300); // 等待一段时间以确保正确获取屏幕尺寸
         });
     } else {
         // 桌面设备优化
