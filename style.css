@@ -1,0 +1,279 @@
+/* 全局样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Microsoft YaHei", Arial, sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #8b4513;
+    margin-bottom: 30px;
+}
+
+h2 {
+    color: #5d3a1a;
+    margin-bottom: 15px;
+}
+
+/* 状态消息样式 */
+.status-message {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+    font-size: 14px;
+    text-align: center;
+    display: none;
+}
+
+.status-message.info {
+    display: block;
+    background-color: #e6f7ff;
+    border: 1px solid #91d5ff;
+    color: #1890ff;
+}
+
+.status-message.error {
+    display: block;
+    background-color: #fff2f0;
+    border: 1px solid #ffccc7;
+    color: #ff4d4f;
+}
+
+.status-message.success {
+    display: block;
+    background-color: #f6ffed;
+    border: 1px solid #b7eb8f;
+    color: #52c41a;
+}
+
+/* 输入区域样式 */
+.input-section {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.date-input {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 15px;
+}
+
+label {
+    font-weight: bold;
+}
+
+select {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+button {
+    background-color: #8b4513;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-left: auto;
+}
+
+button:hover {
+    background-color: #6b3305;
+}
+
+/* 结果区域样式 */
+.result-section {
+    display: none; /* 初始隐藏结果区域 */
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+/* 图腾网格布局 */
+.seal-grid {
+    display: grid;
+    grid-template-rows: auto auto auto auto;
+    gap: 20px;
+    justify-items: center;
+    margin-top: 20px;
+}
+
+.middle-row {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr;
+    gap: 20px;
+    width: 100%;
+    align-items: center;
+}
+
+/* 主印记描述区域样式 */
+.description-section {
+    width: 90%;
+    margin: 20px auto 0;
+    padding: 20px;
+    background-color: #fff9e6;
+    border-radius: 8px;
+    border-left: 5px solid gold;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: none; /* 初始隐藏，计算结果有描述时才显示 */
+}
+
+.description-section h3 {
+    color: #8b4513;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 1.2em;
+}
+
+.kin-desc-container {
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 6px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.kin-desc {
+    line-height: 1.8;
+    color: #333;
+    font-size: 16px;
+    text-align: center;
+    padding: 10px;
+}
+
+/* 底部附加信息样式 */
+.additional-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    width: 90%;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px dashed #ccc;
+}
+
+/* 各个图腾区域样式 */
+.seal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    border-radius: 8px;
+    transition: transform 0.3s;
+    width: 100%;
+    text-align: center;
+}
+
+.seal:hover {
+    transform: translateY(-5px);
+}
+
+.main {
+    border: 3px solid gold;
+    background-color: #fcf8e3;
+    padding: 20px;
+}
+
+.guide {
+    border: 2px solid #4682b4;
+    background-color: #e6f7ff;
+}
+
+.challenge {
+    border: 2px solid #d9534f;
+    background-color: #ffebee;
+}
+
+.support {
+    border: 2px solid #5cb85c;
+    background-color: #e8f5e9;
+}
+
+.push {
+    border: 2px solid #f0ad4e;
+    background-color: #fff8e1;
+}
+
+.wave {
+    border: 2px solid #9c27b0;
+    background-color: #f3e5f5;
+}
+
+.goddess {
+    border: 2px solid #e91e63;
+    background-color: #fce4ec;
+}
+
+.seal-name {
+    font-weight: bold;
+    margin-bottom: 10px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.seal img {
+    max-width: 100%;
+    height: auto;
+    max-height: 150px;
+    object-fit: contain;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    padding: 5px;
+    background-color: white;
+}
+
+.seal.main img {
+    max-height: 200px;
+}
+
+.kin-info {
+    font-weight: bold;
+    margin-top: 10px;
+    color: #8b4513;
+}
+
+.wave-info {
+    font-weight: bold;
+    margin-top: 10px;
+    color: #9c27b0;
+}
+
+/* 响应式布局 */
+@media (max-width: 768px) {
+    .middle-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .additional-info {
+        grid-template-columns: 1fr;
+    }
+    
+    .seal {
+        margin-bottom: 20px;
+    }
+} 

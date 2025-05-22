@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>玛雅天赋印记计算器</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>玛雅天赋印记计算器</h1>
+        
+        <div class="input-section">
+            <h2>请选择您的出生日期</h2>
+            <div class="date-input">
+                <label for="year">年：</label>
+                <select id="year"></select>
+                
+                <label for="month">月：</label>
+                <select id="month"></select>
+                
+                <label for="day">日：</label>
+                <select id="day"></select>
+                
+                <button id="calculate">计算印记</button>
+            </div>
+        </div>
+        
+        <!-- 添加图片加载状态提示 -->
+        <div id="image-status" class="status-message"></div>
+        
+        <div class="result-section" id="result">
+            <div class="seal-grid">
+                <!-- 指引位（上） -->
+                <div class="seal guide">
+                    <div class="seal-name" id="guide-name"></div>
+                    <img id="guide-img" src="" alt="指引位图腾">
+                </div>
+                
+                <div class="middle-row">
+                    <!-- 挑战位（左） -->
+                    <div class="seal challenge">
+                        <div class="seal-name" id="challenge-name"></div>
+                        <img id="challenge-img" src="" alt="挑战位图腾">
+                    </div>
+                    
+                    <!-- 主印记（中） -->
+                    <div class="seal main">
+                        <div class="seal-name" id="main-name"></div>
+                        <img id="main-img" src="" alt="主印记图腾">
+                        <div class="kin-info" id="kin-info"></div>
+                    </div>
+                    
+                    <!-- 支持位（右） -->
+                    <div class="seal support">
+                        <div class="seal-name" id="support-name"></div>
+                        <img id="support-img" src="" alt="支持位图腾">
+                    </div>
+                </div>
+                
+                <!-- 推动位（下） -->
+                <div class="seal push">
+                    <div class="seal-name" id="push-name"></div>
+                    <img id="push-img" src="" alt="推动位图腾">
+                </div>
+                
+                <!-- 主印记描述区域 -->
+                <div class="description-section">
+                    <h3>主印记解读</h3>
+                    <div class="kin-desc-container">
+                        <div class="kin-desc" id="kin-desc"></div>
+                    </div>
+                </div>
+                
+                <!-- 底部附加信息 -->
+                <div class="additional-info">
+                    <!-- 波符 -->
+                    <div class="seal wave">
+                        <div class="seal-name" id="wave-name"></div>
+                        <img id="wave-img" src="" alt="波符图腾">
+                        <div class="wave-info" id="wave-info"></div>
+                    </div>
+                    
+                    <!-- 内在女神 -->
+                    <div class="seal goddess">
+                        <div class="seal-name" id="goddess-name"></div>
+                        <img id="goddess-img" src="" alt="内在女神图腾">
+                        <div class="kin-info" id="goddess-info"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html> 
