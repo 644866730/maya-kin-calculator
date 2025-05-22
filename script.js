@@ -596,7 +596,48 @@ document.addEventListener("DOMContentLoaded", function() {
     
     // 检测设备类型，并添加相应的交互方式
     detectDeviceAndAdjust();
+    
+    // 初始化底部导航
+    initBottomNav();
 });
+
+// 初始化底部导航
+function initBottomNav() {
+    // 获取当前页面URL
+    const currentPath = window.location.pathname;
+    const pageName = currentPath.split("/").pop() || "index.html";
+    
+    // 获取所有导航项
+    const navItems = document.querySelectorAll('.nav-item');
+    
+    // 设置当前页面的导航项为激活状态
+    navItems.forEach(item => {
+        const href = item.getAttribute('href');
+        if (pageName === href || (pageName === "" && href === "index.html")) {
+            item.classList.add('active');
+        } else {
+            item.classList.remove('active');
+        }
+        
+        // 添加点击效果
+        item.addEventListener('click', function() {
+            // 点击时添加过渡类
+            this.classList.add('nav-clicked');
+            
+            // 页面跳转前移除过渡类
+            setTimeout(() => {
+                this.classList.remove('nav-clicked');
+            }, 300);
+        });
+    });
+    
+    // 调整内容区域的底部边距，确保内容不被底部导航遮挡
+    const bottomNav = document.querySelector('.bottom-nav');
+    if (bottomNav) {
+        const bottomNavHeight = bottomNav.offsetHeight;
+        document.body.style.paddingBottom = (bottomNavHeight + 10) + 'px';
+    }
+}
 
 // 检测设备类型并调整交互方式
 function detectDeviceAndAdjust() {

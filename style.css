@@ -17,6 +17,17 @@ body {
     background-color: #f5f5f5;
     color: #333;
     line-height: 1.6;
+    padding-bottom: 70px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 .container {
@@ -521,4 +532,92 @@ img[src] {
     .additional-info {
         grid-column: 1 / -1;
     }
+}
+
+/* 底部导航栏样式 */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    background-color: white;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    height: 60px;
+    padding-bottom: env(safe-area-inset-bottom, 0); /* 适配iPhone X等带有底部安全区域的设备 */
+}
+
+.nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #666;
+    transition: all 0.3s;
+    padding: 8px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-item:hover, .nav-item:active, .nav-item.active {
+    color: #8b4513;
+    background-color: rgba(139, 69, 19, 0.1);
+}
+
+.nav-item.active::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 25%;
+    right: 25%;
+    height: 3px;
+    background-color: #8b4513;
+    border-radius: 3px 3px 0 0;
+}
+
+.nav-icon {
+    font-size: 24px;
+    margin-bottom: 5px;
+    font-style: normal;
+    transition: transform 0.3s ease;
+}
+
+.nav-item span {
+    font-size: 12px;
+    transition: transform 0.2s ease;
+}
+
+/* 导航点击动画 */
+.nav-item.nav-clicked .nav-icon {
+    transform: scale(1.2);
+}
+
+.nav-item.nav-clicked span {
+    transform: scale(1.1);
+}
+
+/* 占位内容样式 */
+.placeholder-content {
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #666;
+    font-size: 18px;
+    line-height: 1.8;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin: 20px 0 80px 0;
+}
+
+/* 页面内容样式 */
+.page-content {
+    margin-bottom: 80px;
 } 
