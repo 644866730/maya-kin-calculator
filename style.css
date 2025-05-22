@@ -6,6 +6,11 @@
     font-family: "Microsoft YaHei", Arial, sans-serif;
 }
 
+:root {
+    --img-max-height: 150px;
+    --main-img-max-height: 200px;
+}
+
 body {
     background-color: #f5f5f5;
     color: #333;
@@ -16,17 +21,20 @@ body {
     max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
+    width: 100%;
 }
 
 h1 {
     text-align: center;
     color: #8b4513;
     margin-bottom: 30px;
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
 }
 
 h2 {
     color: #5d3a1a;
     margin-bottom: 15px;
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
 }
 
 /* 状态消息样式 */
@@ -74,10 +82,12 @@ h2 {
     flex-wrap: wrap;
     align-items: center;
     gap: 15px;
+    justify-content: center;
 }
 
 label {
     font-weight: bold;
+    min-width: 40px;
 }
 
 select {
@@ -85,6 +95,8 @@ select {
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
+    width: 100px;
+    max-width: 100%;
 }
 
 button {
@@ -97,6 +109,9 @@ button {
     cursor: pointer;
     transition: background-color 0.3s;
     margin-left: auto;
+    width: 100%;
+    max-width: 200px;
+    margin-top: 15px;
 }
 
 button:hover {
@@ -111,6 +126,7 @@ button:hover {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
     margin-bottom: 30px;
+    width: 100%;
 }
 
 /* 图腾网格布局 */
@@ -120,6 +136,7 @@ button:hover {
     gap: 20px;
     justify-items: center;
     margin-top: 20px;
+    width: 100%;
 }
 
 .middle-row {
@@ -132,7 +149,7 @@ button:hover {
 
 /* 主印记描述区域样式 */
 .description-section {
-    width: 90%;
+    width: 100%;
     margin: 20px auto 0;
     padding: 20px;
     background-color: #fff9e6;
@@ -146,7 +163,7 @@ button:hover {
     color: #8b4513;
     margin-bottom: 15px;
     text-align: center;
-    font-size: 1.2em;
+    font-size: clamp(1rem, 3vw, 1.2em);
 }
 
 .kin-desc-container {
@@ -169,7 +186,7 @@ button:hover {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 30px;
-    width: 90%;
+    width: 100%;
     margin-top: 20px;
     padding-top: 20px;
     border-top: 1px dashed #ccc;
@@ -234,12 +251,14 @@ button:hover {
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: clamp(0.9rem, 3vw, 1rem);
+    text-align: center;
 }
 
 .seal img {
     max-width: 100%;
     height: auto;
-    max-height: 150px;
+    max-height: var(--img-max-height, 150px);
     object-fit: contain;
     border-radius: 50%;
     border: 1px solid #ddd;
@@ -248,23 +267,78 @@ button:hover {
 }
 
 .seal.main img {
-    max-height: 200px;
+    max-height: var(--main-img-max-height, 200px);
 }
 
 .kin-info {
     font-weight: bold;
     margin-top: 10px;
     color: #8b4513;
+    font-size: clamp(0.9rem, 3vw, 1rem);
 }
 
 .wave-info {
     font-weight: bold;
     margin-top: 10px;
     color: #9c27b0;
+    font-size: clamp(0.9rem, 3vw, 1rem);
+}
+
+/* 触摸设备特定样式 */
+.touch-device .seal:hover {
+    transform: none; /* 禁用悬停效果 */
+}
+
+.touch-device .seal.active {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* 图片懒加载样式 */
+img[data-src] {
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+img[src] {
+    opacity: 1;
 }
 
 /* 响应式布局 */
+@media (max-width: 992px) {
+    .container {
+        padding: 15px;
+    }
+    
+    .seal img {
+        max-height: 120px;
+    }
+    
+    .seal.main img {
+        max-height: 150px;
+    }
+}
+
 @media (max-width: 768px) {
+    .date-input {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .date-input label {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    .date-input select {
+        width: 70%;
+    }
+    
+    button {
+        margin: 15px auto 0;
+    }
+    
     .middle-row {
         grid-template-columns: 1fr;
     }
@@ -275,5 +349,36 @@ button:hover {
     
     .seal {
         margin-bottom: 20px;
+    }
+    
+    .seal img {
+        max-height: 100px;
+    }
+    
+    .seal.main img {
+        max-height: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .seal-name, .kin-info, .wave-info {
+        font-size: 0.9rem;
+    }
+    
+    .description-section {
+        padding: 15px 10px;
+    }
+    
+    .kin-desc {
+        font-size: 14px;
+        padding: 8px;
+    }
+    
+    .seal-grid {
+        gap: 15px;
     }
 } 

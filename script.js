@@ -139,7 +139,7 @@ const kinDescriptions = {
     122: "想要说话或者分享，就让它发生吧，会有很多讯息在你沟通和分享中流动出来。",
     123: "平衡你的精神世界与物质世界，它们对于你来说一样精彩。",
     124: "滋养自己的内在让内在成长，当你成长了，你周围的一切都会成长。",
-    125: "当你非常坚定自己可以拿下目标，并立刻行动，你将拥有巨大的爆发力去实现它。",
+    125: "当你非常坚定自己可以拿下目标，并立刻行动，你将拥有巨大的爆发力去实现它。有时候没有能量，问问自己，我清晰我的知道自己要干嘛了吗？",
     126: "你非常明白放下就会回流之时，你释放束缚自己的一切，会有更高版本的东西进入你的生命中。",
     127: "知道自己要创造什么，然后去创造，你便可创造任何一切（如金钱、物质）。",
     128: "释放所有的束缚，便可由内而外的去呈现你的内在美。",
@@ -585,8 +585,97 @@ document.addEventListener("DOMContentLoaded", function() {
         
         // 显示结果
         displayResults(results);
+        
+        // 自动滚动到结果区域
+        setTimeout(() => {
+            document.getElementById("result").scrollIntoView({
+                behavior: 'smooth'
+            });
+        }, 500);
     });
+    
+    // 检测设备类型，并添加相应的交互方式
+    detectDeviceAndAdjust();
 });
+
+// 检测设备类型并调整交互方式
+function detectDeviceAndAdjust() {
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (isMobile) {
+        // 为移动设备优化
+        console.log('检测到移动设备，应用移动优化...');
+        
+        // 移动设备上的图片尺寸预设
+        document.documentElement.style.setProperty('--img-max-height', '100px');
+        document.documentElement.style.setProperty('--main-img-max-height', '120px');
+        
+        // 对触摸设备添加特定的样式
+        document.body.classList.add('touch-device');
+        
+        // 用点击替换悬停效果
+        const seals = document.querySelectorAll('.seal');
+        seals.forEach(seal => {
+            seal.addEventListener('click', function() {
+                // 先移除所有活跃状态
+                seals.forEach(s => s.classList.remove('active'));
+                // 然后添加当前项的活跃状态
+                this.classList.add('active');
+                
+                // 3秒后自动移除活跃状态
+                setTimeout(() => {
+                    this.classList.remove('active');
+                }, 3000);
+            });
+        });
+    } else {
+        // 桌面设备优化
+        console.log('检测到桌面设备');
+        document.body.classList.add('desktop-device');
+    }
+    
+    // 设置图片加载优先级
+    optimizeImageLoading();
+}
+
+// 优化图片加载
+function optimizeImageLoading() {
+    // 使用IntersectionObserver延迟加载不在视口的图片
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    const src = img.getAttribute('data-src');
+                    if (src) {
+                        img.src = src;
+                        img.removeAttribute('data-src');
+                        imageObserver.unobserve(img);
+                    }
+                }
+            });
+        });
+        
+        // 检查页面加载后添加的图片
+        function checkForNewImages() {
+            document.querySelectorAll('img[data-src]').forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
+        
+        // 当显示结果时，设置图片的data-src而不是直接设置src
+        window.setOptimizedImageSrc = function(imgId, path) {
+            const img = document.getElementById(imgId);
+            if (img) {
+                img.setAttribute('data-src', path);
+                imageObserver.observe(img);
+            }
+        };
+        
+        // 定期检查新图片
+        setInterval(checkForNewImages, 1000);
+    }
+}
 
 // 检查seal文件夹图片是否存在
 function checkSealImages() {
@@ -667,20 +756,39 @@ function displayResults(results) {
             checkAllImagesLoaded();
         };
         
-        // 尝试多种可能的路径
-        img.src = `seal/${sealNumber}.png`;
-        img.onerror = function() {
-            this.onerror = null; // 防止循环触发错误
-            // 尝试其他路径
-            this.src = `./seal/${sealNumber}.png`;
-            this.onerror = function() {
+        // 针对移动设备的优化设置
+        if (window.setOptimizedImageSrc && 'IntersectionObserver' in window) {
+            // 使用优化的图片加载方式
+            window.setOptimizedImageSrc(imgId, `seal/${sealNumber}.png`);
+            
+            // 仍然需要错误处理
+            img.onerror = function() {
                 this.onerror = null;
-                this.src = `../seal/${sealNumber}.png`;
+                this.src = `./seal/${sealNumber}.png`;
                 this.onerror = function() {
-                    handleImageError(this);
+                    this.onerror = null;
+                    this.src = `../seal/${sealNumber}.png`;
+                    this.onerror = function() {
+                        handleImageError(this);
+                    };
                 };
             };
-        };
+        } else {
+            // 传统图片加载方式
+            img.src = `seal/${sealNumber}.png`;
+            img.onerror = function() {
+                this.onerror = null; // 防止循环触发错误
+                // 尝试其他路径
+                this.src = `./seal/${sealNumber}.png`;
+                this.onerror = function() {
+                    this.onerror = null;
+                    this.src = `../seal/${sealNumber}.png`;
+                    this.onerror = function() {
+                        handleImageError(this);
+                    };
+                };
+            };
+        }
     }
     
     // 主印记
