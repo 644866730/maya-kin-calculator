@@ -497,13 +497,18 @@ function initDateSelectors() {
     const monthSelect = document.getElementById("month");
     const daySelect = document.getElementById("day");
     
-    // 初始化年份选择器 (从1900年到当前年份)
-    const currentYear = new Date().getFullYear();
-    for (let year = 1900; year <= currentYear; year++) {
+    // 获取当前日期
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth() + 1; // getMonth()返回0-11
+    const currentDay = currentDate.getDate();
+    
+    // 初始化年份选择器 (从1950年到2100年)
+    for (let year = 1950; year <= 2100; year++) {
         const option = document.createElement("option");
         option.value = year;
         option.textContent = year;
-        if (year === 1990) { // 默认选择1990年
+        if (year === currentYear) { // 默认选择当前年份
             option.selected = true;
         }
         yearSelect.appendChild(option);
@@ -514,7 +519,7 @@ function initDateSelectors() {
         const option = document.createElement("option");
         option.value = month;
         option.textContent = month;
-        if (month === 1) { // 默认选择1月
+        if (month === currentMonth) { // 默认选择当前月份
             option.selected = true;
         }
         monthSelect.appendChild(option);
@@ -522,6 +527,17 @@ function initDateSelectors() {
     
     // 更新日期选择器
     updateDaySelector();
+    
+    // 设置当前日期
+    setTimeout(() => {
+        // 使用setTimeout确保日期选择器已更新
+        for (let i = 0; i < daySelect.options.length; i++) {
+            if (parseInt(daySelect.options[i].value) === currentDay) {
+                daySelect.options[i].selected = true;
+                break;
+            }
+        }
+    }, 0);
     
     // 当年份或月份改变时，更新日期选择器
     yearSelect.addEventListener("change", updateDaySelector);
@@ -536,6 +552,9 @@ function updateDaySelector() {
     
     const year = parseInt(yearSelect.value);
     const month = parseInt(monthSelect.value);
+    
+    // 保存当前选择的日期
+    const selectedDay = daySelect.value ? parseInt(daySelect.value) : 1;
     
     // 计算选定月份的天数
     let daysInMonth;
@@ -556,7 +575,8 @@ function updateDaySelector() {
         const option = document.createElement("option");
         option.value = day;
         option.textContent = day;
-        if (day === 1) { // 默认选择1日
+        // 如果之前选择的日期在当前月份有效，则保持选中
+        if (day === Math.min(selectedDay, daysInMonth)) {
             option.selected = true;
         }
         daySelect.appendChild(option);
@@ -901,4 +921,4 @@ function displayResults(results) {
     document.getElementById("goddess-name").textContent = `${results.goddess.toneName}${results.goddess.sealName}`;
     document.getElementById("goddess-info").textContent = `Kin ${results.goddess.kin}`;
     setImageWithFallback("goddess-img", results.goddess.seal);
-} 
+}
