@@ -273,7 +273,7 @@ button:hover {
     height: auto;
     max-height: var(--img-max-height, 150px);
     object-fit: contain;
-    border-radius: 50%;
+    border-radius: 8px;
     border: 1px solid #ddd;
     padding: 5px;
     background-color: white;
@@ -361,6 +361,7 @@ img[src] {
     
     .seal img {
         max-height: 120px;
+        border-radius: 6px;
     }
     
     .seal.main img {
@@ -432,6 +433,7 @@ img[src] {
     /* 调整图腾大小 */
     .seal img {
         max-height: var(--mobile-img-height);
+        border-radius: 5px;
     }
     
     .seal.main img {
