@@ -395,7 +395,8 @@ function calculateMayaTraits(year, month, day) {
     // 挑战图腾 = 主图腾+10或者-10
     const sealChallenge = (sealMain + 10 - 1) % 20 + 1;
     // 支持图腾 = 19 - 主图腾
-    const sealSupport = (19 - sealMain) % 20 || 20;
+    const sealSupport = (19 - sealMain + 20 ) % 20 || 20;
+    
     // 推动图腾 = 21 - 主图腾
     const sealPush = (21 - sealMain - 1) % 20 + 1;
     
@@ -420,6 +421,12 @@ function calculateMayaTraits(year, month, day) {
     const toneGuide = toneMain;
     // 推动图腾的调性 = 14-主图腾调性
     const tonePush = 14 - toneMain || 13;
+    
+    // 计算各个图腾的kin值
+    const kinGuide = findKinByToneSeal(toneGuide, sealGuide);
+    const kinChallenge = findKinByToneSeal(toneChallenge, sealChallenge);
+    const kinSupport = findKinByToneSeal(toneSupport, sealSupport);
+    const kinPush = findKinByToneSeal(tonePush, sealPush);
     
     // 波符
     const waveNum = Math.floor((kinMain - 1) / 13) + 1;
@@ -451,24 +458,28 @@ function calculateMayaTraits(year, month, day) {
             description: kinDescriptions[kinMain] || ''
         },
         guide: {
+            kin: kinGuide,
             tone: toneGuide, 
             toneName: toneNames[toneGuide], 
             seal: sealGuide, 
             sealName: totemNames[sealGuide]
         },
         support: {
+            kin: kinSupport,
             tone: toneSupport, 
             toneName: toneNames[toneSupport], 
             seal: sealSupport, 
             sealName: totemNames[sealSupport]
         },
         challenge: {
+            kin: kinChallenge,
             tone: toneChallenge, 
             toneName: toneNames[toneChallenge], 
             seal: sealChallenge, 
             sealName: totemNames[sealChallenge]
         },
         push: {
+            kin: kinPush,
             tone: tonePush, 
             toneName: toneNames[tonePush], 
             seal: sealPush, 
@@ -883,7 +894,7 @@ function displayResults(results) {
     }
     
     // 主印记
-    document.getElementById("main-name").textContent = `${results.main.toneName}${results.main.sealName}`;
+    document.getElementById("main-name").textContent = `主印记:<${results.main.toneName}${results.main.sealName}>`;
     setImageWithFallback("main-img", results.main.seal);
     document.getElementById("kin-info").textContent = `Kin ${results.main.kin}`;
     
@@ -897,29 +908,65 @@ function displayResults(results) {
     }
     
     // 指引位
-    document.getElementById("guide-name").textContent = `${results.guide.toneName}${results.guide.sealName}`;
+    document.getElementById("guide-name").textContent = `指引:<${results.guide.toneName}${results.guide.sealName}>`;
     setImageWithFallback("guide-img", results.guide.seal);
     
+    // 添加指引位的Kin信息
+    if (!document.getElementById("guide-info")) {
+        const guideInfoElement = document.createElement("div");
+        guideInfoElement.id = "guide-info";
+        guideInfoElement.className = "kin-info";
+        document.querySelector(".seal.guide").appendChild(guideInfoElement);
+    }
+    document.getElementById("guide-info").textContent = `Kin ${results.guide.kin}`;
+    
     // 挑战位
-    document.getElementById("challenge-name").textContent = `${results.challenge.toneName}${results.challenge.sealName}`;
+    document.getElementById("challenge-name").textContent = `挑战:<${results.challenge.toneName}${results.challenge.sealName}>`;
     setImageWithFallback("challenge-img", results.challenge.seal);
     
+    // 添加挑战位的Kin信息
+    if (!document.getElementById("challenge-info")) {
+        const challengeInfoElement = document.createElement("div");
+        challengeInfoElement.id = "challenge-info";
+        challengeInfoElement.className = "kin-info";
+        document.querySelector(".seal.challenge").appendChild(challengeInfoElement);
+    }
+    document.getElementById("challenge-info").textContent = `Kin ${results.challenge.kin}`;
+    
     // 支持位
-    document.getElementById("support-name").textContent = `${results.support.toneName}${results.support.sealName}`;
+    document.getElementById("support-name").textContent = `支持:<${results.support.toneName}${results.support.sealName}>`;
     setImageWithFallback("support-img", results.support.seal);
     
+    // 添加支持位的Kin信息
+    if (!document.getElementById("support-info")) {
+        const supportInfoElement = document.createElement("div");
+        supportInfoElement.id = "support-info";
+        supportInfoElement.className = "kin-info";
+        document.querySelector(".seal.support").appendChild(supportInfoElement);
+    }
+    document.getElementById("support-info").textContent = `Kin ${results.support.kin}`;
+    
     // 推动位
-    document.getElementById("push-name").textContent = `${results.push.toneName}${results.push.sealName}`;
+    document.getElementById("push-name").textContent = `推动:<${results.push.toneName}${results.push.sealName}>`;
     setImageWithFallback("push-img", results.push.seal);
     
+    // 添加推动位的Kin信息
+    if (!document.getElementById("push-info")) {
+        const pushInfoElement = document.createElement("div");
+        pushInfoElement.id = "push-info";
+        pushInfoElement.className = "kin-info";
+        document.querySelector(".seal.push").appendChild(pushInfoElement);
+    }
+    document.getElementById("push-info").textContent = `Kin ${results.push.kin}`;
+    
     // 波符
-    document.getElementById("wave-name").textContent = `波符：${results.wave.sealName}`;
+    document.getElementById("wave-name").textContent = `波符:<${results.wave.sealName}>`;
     // document.getElementById("wave-info").textContent = `第${results.wave.waveNum}波第${results.wave.waveDay}天`;
     document.getElementById("wave-info").textContent = `第${results.wave.waveDay}天`;
     setImageWithFallback("wave-img", results.wave.seal);
     
     // 内在女神
-    document.getElementById("goddess-name").textContent = `内在女神：${results.goddess.toneName}${results.goddess.sealName}`;
+    document.getElementById("goddess-name").textContent = `内在女神:<${results.goddess.toneName}${results.goddess.sealName}>`;
     document.getElementById("goddess-info").textContent = `Kin ${results.goddess.kin}`;
     setImageWithFallback("goddess-img", results.goddess.seal);
 }
