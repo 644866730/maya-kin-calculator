@@ -51,11 +51,11 @@ body {
 
 h1 {
     text-align: center;
-    color: var(--primary-color);
+    color: #ffe066;
     margin-bottom: 12px;
     font-size: 1.2rem;
     font-weight: 500;
-    text-shadow: 1px 1px 3px rgba(6, 21, 238, 0.1);
+    text-shadow: 0 4px 16px rgba(0, 0, 0, 0.45), 0 0 12px rgba(255, 224, 102, 0.42);
     font-family: "Georgia", "Times New Roman", "KaiTi", "楷体", serif;
     line-height: 1.5;
     font-style: italic;
