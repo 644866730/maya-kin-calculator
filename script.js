@@ -13,6 +13,9 @@ const totemNames = [
     "黄战士", "红地球", "白镜子", "蓝风暴", "黄太阳"
 ];
 
+// PSI 数据已通过 psi_data.js 加载
+// 矩阵数据已通过 matrices_data.js 加载
+
 // 存储Kin解释的对象 - 直接从main.py复制而来
 const kinDescriptions = {
     1: "有意识的聚焦创造，新事物将从你手中诞生并得到滋养。",
@@ -598,10 +601,10 @@ function updateDaySelector() {
 document.addEventListener("DOMContentLoaded", function() {
     // 检查seal文件夹图片
     checkSealImages();
-    
+
     // 加载Kin描述数据
     loadKinDescriptions();
-    
+
     // 初始化日期选择器
     initDateSelectors();
     
@@ -894,7 +897,7 @@ function displayResults(results) {
     }
     
     // 主印记
-    document.getElementById("main-name").textContent = `主印记:<${results.main.toneName}${results.main.sealName}>`;
+    document.getElementById("main-name").textContent = `主印记·${results.main.toneName}${results.main.sealName}`;
     setImageWithFallback("main-img", results.main.seal);
     document.getElementById("kin-info").textContent = `Kin ${results.main.kin}`;
     
@@ -908,7 +911,7 @@ function displayResults(results) {
     }
     
     // 指引位
-    document.getElementById("guide-name").textContent = `指引:<${results.guide.toneName}${results.guide.sealName}>`;
+    document.getElementById("guide-name").textContent = `指引·${results.guide.toneName}${results.guide.sealName}`;
     setImageWithFallback("guide-img", results.guide.seal);
     
     // 添加指引位的Kin信息
@@ -921,7 +924,7 @@ function displayResults(results) {
     document.getElementById("guide-info").textContent = `Kin ${results.guide.kin}`;
     
     // 挑战位
-    document.getElementById("challenge-name").textContent = `挑战:<${results.challenge.toneName}${results.challenge.sealName}>`;
+    document.getElementById("challenge-name").textContent = `挑战·${results.challenge.toneName}${results.challenge.sealName}`;
     setImageWithFallback("challenge-img", results.challenge.seal);
     
     // 添加挑战位的Kin信息
@@ -934,7 +937,7 @@ function displayResults(results) {
     document.getElementById("challenge-info").textContent = `Kin ${results.challenge.kin}`;
     
     // 支持位
-    document.getElementById("support-name").textContent = `支持:<${results.support.toneName}${results.support.sealName}>`;
+    document.getElementById("support-name").textContent = `支持·${results.support.toneName}${results.support.sealName}`;
     setImageWithFallback("support-img", results.support.seal);
     
     // 添加支持位的Kin信息
@@ -947,7 +950,7 @@ function displayResults(results) {
     document.getElementById("support-info").textContent = `Kin ${results.support.kin}`;
     
     // 推动位
-    document.getElementById("push-name").textContent = `推动:<${results.push.toneName}${results.push.sealName}>`;
+    document.getElementById("push-name").textContent = `推动·${results.push.toneName}${results.push.sealName}`;
     setImageWithFallback("push-img", results.push.seal);
     
     // 添加推动位的Kin信息
@@ -960,13 +963,71 @@ function displayResults(results) {
     document.getElementById("push-info").textContent = `Kin ${results.push.kin}`;
     
     // 波符
-    document.getElementById("wave-name").textContent = `波符:<${results.wave.sealName}>`;
-    // document.getElementById("wave-info").textContent = `第${results.wave.waveNum}波第${results.wave.waveDay}天`;
+    document.getElementById("wave-name").textContent = `波符·${results.wave.sealName}`;
     document.getElementById("wave-info").textContent = `第${results.wave.waveDay}天`;
     setImageWithFallback("wave-img", results.wave.seal);
-    
+
     // 内在女神
-    document.getElementById("goddess-name").textContent = `内在女神:<${results.goddess.toneName}${results.goddess.sealName}>`;
-    document.getElementById("goddess-info").textContent = `Kin ${results.goddess.kin}`;
+    document.getElementById("goddess-name").textContent = `内在女神`;
+    document.getElementById("goddess-info").textContent = `${results.goddess.toneName}${results.goddess.sealName}`;
+    //document.getElementById("goddess-info").textContent = `Kin ${results.goddess.kin}`;
     setImageWithFallback("goddess-img", results.goddess.seal);
+
+    // 获取13月亮历日期、PSI和对等KIN（本地计算）
+    const year = parseInt(document.getElementById("year").value);
+    const month = parseInt(document.getElementById("month").value);
+    const day = parseInt(document.getElementById("day").value);
+
+    try {
+        // 获取 13 月亮历信息和 PSI
+        const lunar13Info = getLunar13Info(year, month, day);
+
+        // 显示 PSI
+        if (lunar13Info && lunar13Info.psi) {
+            // 解析 PSI 文本，例如 "磁性的红龙"
+            const psiText = lunar13Info.psi;
+            const psiMatch = psiText.match(/(.+的)?(.+)/);
+
+            if (psiMatch) {
+                const toneName = psiMatch[1] || '';
+                const sealName = psiMatch[2] || psiText;
+
+                // 找到对应的图腾编号
+                let sealNum = 0;
+                for (let i = 1; i <= 20; i++) {
+                    if (totemNames[i] === sealName) {
+                        sealNum = i;
+                        break;
+                    }
+                }
+
+                document.getElementById("psi-name").textContent = `PSI`;
+                document.getElementById("psi-info").textContent = `${toneName}${sealName}`;
+                //document.getElementById("psi-info").textContent = lunar13Info.lunarDateShort;
+                if (sealNum > 0) {
+                    setImageWithFallback("psi-img", sealNum);
+                }
+            }
+        }
+
+        // 计算对等KIN
+        const equivalentKinData = calculateEquivalentKin(year, month, day);
+
+        // 显示对等 KIN
+        if (equivalentKinData && equivalentKinData.equivalentKin > 0) {
+            const equivalentKin = equivalentKinData.equivalentKin;
+            const equivalentTone = equivalentKinData.equivalentTone;
+            const equivalentSeal = equivalentKinData.equivalentSeal;
+            const equivalentToneName = toneNames[equivalentTone];
+            const equivalentSealName = totemNames[equivalentSeal];
+
+            document.getElementById("equivalent-name").textContent = `对等Kin:${equivalentKin}`;
+            document.getElementById("equivalent-info").textContent = `${equivalentToneName}${equivalentSealName}`;
+            //document.getElementById("equivalent-info").textContent = `Kin ${equivalentKin}`;
+            setImageWithFallback("equivalent-img", equivalentSeal);
+        }
+    } catch (error) {
+        console.warn('计算PSI或对等KIN失败:', error);
+        // 即使失败也不影响主要功能的显示
+    }
 }
