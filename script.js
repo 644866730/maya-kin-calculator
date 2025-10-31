@@ -899,7 +899,7 @@ function displayResults(results) {
     // 主印记
     document.getElementById("main-name").textContent = `主印记·${results.main.toneName}${results.main.sealName}`;
     setImageWithFallback("main-img", results.main.seal);
-    document.getElementById("kin-info").textContent = `Kin ${results.main.kin}`;
+    document.getElementById("kin-info").textContent = `${results.main.kin}`;
     
     // 主印记描述
     const kinDescElement = document.getElementById("kin-desc");
@@ -921,7 +921,7 @@ function displayResults(results) {
         guideInfoElement.className = "kin-info";
         document.querySelector(".seal.guide").appendChild(guideInfoElement);
     }
-    document.getElementById("guide-info").textContent = `Kin ${results.guide.kin}`;
+    document.getElementById("guide-info").textContent = `${results.guide.kin}`;
     
     // 挑战位
     document.getElementById("challenge-name").textContent = `挑战·${results.challenge.toneName}${results.challenge.sealName}`;
@@ -934,7 +934,7 @@ function displayResults(results) {
         challengeInfoElement.className = "kin-info";
         document.querySelector(".seal.challenge").appendChild(challengeInfoElement);
     }
-    document.getElementById("challenge-info").textContent = `Kin ${results.challenge.kin}`;
+    document.getElementById("challenge-info").textContent = `${results.challenge.kin}`;
     
     // 支持位
     document.getElementById("support-name").textContent = `支持·${results.support.toneName}${results.support.sealName}`;
@@ -947,7 +947,7 @@ function displayResults(results) {
         supportInfoElement.className = "kin-info";
         document.querySelector(".seal.support").appendChild(supportInfoElement);
     }
-    document.getElementById("support-info").textContent = `Kin ${results.support.kin}`;
+    document.getElementById("support-info").textContent = `${results.support.kin}`;
     
     // 推动位
     document.getElementById("push-name").textContent = `推动·${results.push.toneName}${results.push.sealName}`;
@@ -960,7 +960,7 @@ function displayResults(results) {
         pushInfoElement.className = "kin-info";
         document.querySelector(".seal.push").appendChild(pushInfoElement);
     }
-    document.getElementById("push-info").textContent = `Kin ${results.push.kin}`;
+    document.getElementById("push-info").textContent = `${results.push.kin}`;
     
     // 波符
     document.getElementById("wave-name").textContent = `波符·${results.wave.sealName}`;
@@ -968,7 +968,8 @@ function displayResults(results) {
     setImageWithFallback("wave-img", results.wave.seal);
 
     // 内在女神
-    document.getElementById("goddess-name").textContent = `内在女神`;
+    const goddessKinLabel = results.goddess && results.goddess.kin ? `内在女神${results.goddess.kin}` : `内在女神`;
+    document.getElementById("goddess-name").textContent = goddessKinLabel;
     document.getElementById("goddess-info").textContent = `${results.goddess.toneName}${results.goddess.sealName}`;
     //document.getElementById("goddess-info").textContent = `Kin ${results.goddess.kin}`;
     setImageWithFallback("goddess-img", results.goddess.seal);
@@ -1001,7 +1002,16 @@ function displayResults(results) {
                     }
                 }
 
-                document.getElementById("psi-name").textContent = `PSI`;
+                let psiKinLabel = "";
+                const toneIndex = toneNames.indexOf(toneName);
+                if (toneIndex > 0 && sealNum > 0) {
+                    const psiKinValue = findKinByToneSeal(toneIndex, sealNum);
+                    if (psiKinValue) {
+                        psiKinLabel = psiKinValue;
+                    }
+                }
+
+                document.getElementById("psi-name").textContent = psiKinLabel ? `PSI${psiKinLabel}` : `PSI`;
                 document.getElementById("psi-info").textContent = `${toneName}${sealName}`;
                 //document.getElementById("psi-info").textContent = lunar13Info.lunarDateShort;
                 if (sealNum > 0) {
@@ -1021,7 +1031,7 @@ function displayResults(results) {
             const equivalentToneName = toneNames[equivalentTone];
             const equivalentSealName = totemNames[equivalentSeal];
 
-            document.getElementById("equivalent-name").textContent = `对等Kin:${equivalentKin}`;
+            document.getElementById("equivalent-name").textContent = `对等${equivalentKin}`;
             document.getElementById("equivalent-info").textContent = `${equivalentToneName}${equivalentSealName}`;
             //document.getElementById("equivalent-info").textContent = `Kin ${equivalentKin}`;
             setImageWithFallback("equivalent-img", equivalentSeal);
