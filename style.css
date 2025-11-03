@@ -63,6 +63,11 @@ h1 {
     padding: 0 5px;
 }
 
+.contact-page h1 {
+    color: #5a2b8a;
+    text-shadow: 0 6px 18px rgba(96, 64, 155, 0.24), 0 0 10px rgba(210, 183, 255, 0.4);
+}
+
 .poster-card {
     width: min(100%, 360px);
     margin: 14px auto 22px;
@@ -628,6 +633,11 @@ body.learning-page {
     background: linear-gradient(140deg, rgba(244, 239, 255, 0.95) 0%, rgba(230, 215, 255, 0.96) 38%, rgba(204, 181, 255, 0.92) 100%);
     color: #2d0f6e;
     overflow-x: hidden;
+}
+
+.learning-page h1 {
+    color: #341079;
+    text-shadow: 0 8px 20px rgba(60, 24, 128, 0.25), 0 0 12px rgba(178, 136, 255, 0.4);
 }
 
 body.learning-page::before {
