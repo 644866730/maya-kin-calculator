@@ -795,6 +795,22 @@ body.learning-page::before {
     box-shadow: 0 16px 34px rgba(82, 40, 158, 0.38);
 }
 
+.learning-card-index-img {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 12px 24px rgba(82, 40, 158, 0.28);
+    flex-shrink: 0;
+    transition: transform 0.28s ease, box-shadow 0.28s ease;
+}
+
+.learning-card:hover .learning-card-index-img,
+.learning-card:focus-visible .learning-card-index-img {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 34px rgba(82, 40, 158, 0.38);
+}
+
 .learning-card-content {
     display: flex;
     flex-direction: column;
