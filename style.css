@@ -713,11 +713,14 @@ body.learning-page::before {
 
 .hero-note {
     font-size: 0.78rem;
-    color: rgba(49, 21, 120, 0.82);
-    padding: 10px 16px;
-    border-radius: 999px;
-    background: linear-gradient(135deg, rgba(103, 58, 183, 0.16), rgba(63, 33, 120, 0.08));
-    box-shadow: inset 0 0 0 1px rgba(123, 31, 162, 0.18);
+    color: rgba(42, 17, 108, 0.92);
+    padding: 10px 14px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    box-shadow: 0 6px 18px rgba(52, 27, 120, 0.12);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     z-index: 1;
 }
 
@@ -737,8 +740,8 @@ body.learning-page::before {
     position: relative;
     display: flex;
     align-items: center;
-    gap: 16px;
-    padding: 18px 20px;
+    gap: 14px;
+    padding: 14px 18px;
     border-radius: 18px;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.65));
     box-shadow: 0 14px 26px rgba(72, 34, 134, 0.12);
@@ -805,9 +808,9 @@ body.learning-page::before {
 }
 
 .learning-card-index-img {
-    width: 58px;
-    height: 58px;
-    border-radius: 14px;
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
     object-fit: cover;
     box-shadow: 0 16px 32px rgba(82, 40, 158, 0.32);
     flex-shrink: 0;
@@ -871,6 +874,6 @@ body.learning-page::before {
     }
 
     .learning-card {
-        padding: 22px 24px;
+        padding: 18px 20px;
     }
 }
