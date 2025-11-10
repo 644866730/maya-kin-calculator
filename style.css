@@ -267,7 +267,7 @@ button:active {
         "additional";
     gap: 8px;
     justify-items: center;
-    margin-top: 8px;
+    margin-top: 18px;
     width: 100%;
 }
 
@@ -666,7 +666,7 @@ body.learning-page::before {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 22px 20px;
+    padding: 28px 24px;
     border-radius: 20px;
     /* 背景图：learn/learn1.jpg，仅作用于顶部大组件 */
     background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.46), rgba(255, 255, 255, 0.28)), url("learn/learn1.jpg");
@@ -715,6 +715,7 @@ body.learning-page::before {
     font-size: 0.78rem;
     color: rgba(42, 17, 108, 0.92);
     padding: 10px 14px;
+    margin-top: 18px;
     border-radius: 12px;
     background: rgba(255, 255, 255, 0.72);
     border: 1px solid rgba(255, 255, 255, 0.85);
@@ -726,7 +727,7 @@ body.learning-page::before {
 
 .learning-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
     gap: 18px;
     margin: 8px 0 110px 0;
     padding-top: 8px;
@@ -863,7 +864,7 @@ body.learning-page::before {
     }
 
     .learning-hero {
-        padding: 26px 28px;
+        padding: 32px 32px;
     }
 
     .learning-hero h2 {
@@ -871,7 +872,7 @@ body.learning-page::before {
     }
 
     .learning-list {
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
         gap: 20px;
     }
 
