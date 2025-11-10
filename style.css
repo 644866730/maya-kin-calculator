@@ -715,7 +715,7 @@ body.learning-page::before {
     font-size: 0.78rem;
     color: rgba(42, 17, 108, 0.92);
     padding: 10px 14px;
-    margin-top: 18px;
+    margin-top: 30px;
     border-radius: 12px;
     background: rgba(255, 255, 255, 0.72);
     border: 1px solid rgba(255, 255, 255, 0.85);
@@ -730,8 +730,8 @@ body.learning-page::before {
     grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
     gap: 18px;
     margin: 8px 0 110px 0;
-    padding-top: 8px;
-    padding-bottom: 12px;
+    padding-top: 1px;
+    padding-bottom: 1px;
     /* 底部文章区域背景图 */
     background-image: url("learn/learn2.jpg");
     background-size: cover;
