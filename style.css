@@ -702,7 +702,11 @@ body.learning-page::before {
     letter-spacing: 0.8px;
     margin-top: 0;
     margin-bottom: 10px;
-    color: #3c1a8c;
+    color: #000;
+    background: hsl(54, 75%, 71%);
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 6px;
     z-index: 1;
 }
 
@@ -717,7 +721,7 @@ body.learning-page::before {
 
 .hero-note {
     font-size: 0.78rem;
-    color: rgba(42, 17, 108, 0.92);
+    color: #000;
     padding: 2px 2px;
 
     position: absolute;
@@ -726,7 +730,7 @@ body.learning-page::before {
     transform: translateX(-50%);
     margin: 0;
     border-radius: 12px;
-    background: rgba(255, 255, 255, 0.72);
+    background: hsl(54, 75%, 71%);
     border: 1px solid rgba(255, 255, 255, 0.85);
     box-shadow: 0 6px 18px rgba(52, 27, 120, 0.12);
     backdrop-filter: blur(4px);
