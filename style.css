@@ -677,7 +677,7 @@ body.learning-page::before {
     background-repeat: no-repeat;
     box-shadow: 0 18px 38px rgba(82, 40, 158, 0.18);
     overflow: hidden;
-    min-height: 180px;
+    min-height: 220px;
 }
 
 .learning-hero::after {
