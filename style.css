@@ -666,8 +666,8 @@ body.learning-page::before {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 0 6px;
-    padding-top: 6px;
+    padding: 0 4px;
+    padding-top: 4px;
     padding-bottom: 0;
     border-radius: 20px;
     /* 背景图：learn/learn1.jpg，仅作用于顶部大组件 */
@@ -718,7 +718,7 @@ body.learning-page::before {
 .hero-note {
     font-size: 0.78rem;
     color: rgba(42, 17, 108, 0.92);
-    padding: 10px 14px;
+    padding: 2px 2px;
 
     position: absolute;
     left: 50%;
