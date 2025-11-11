@@ -718,11 +718,11 @@ body.learning-page::before {
 .hero-note {
     font-size: 0.78rem;
     color: rgba(42, 17, 108, 0.92);
-    padding: 2px 2px;
+    padding: 4px 4px;
 
     position: absolute;
     left: 50%;
-    bottom: 2px;
+    bottom: 8px;
     transform: translateX(-50%);
     margin: 0;
     border-radius: 12px;
