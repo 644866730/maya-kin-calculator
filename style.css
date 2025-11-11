@@ -891,3 +891,17 @@ body.learning-page::before {
         padding: 18px 20px;
     }
 }
+
+@media (max-width: 767.98px) {
+    .learning-hero {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .hero-note {
+        left: 8px;
+        right: 8px;
+        transform: none;
+        width: auto;
+    }
+}
