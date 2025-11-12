@@ -82,9 +82,9 @@
         .contact-card {
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(20px);
-            border-radius: 30px;
-            padding: 60px 50px;
-            max-width: 500px;
+            border-radius: 15px;
+            padding: 10px 5px;
+            max-width: 350px;
             width: 100%;
             box-shadow:
                 0 20px 60px rgba(0, 0, 0, 0.5),
@@ -119,8 +119,8 @@
         /* 标题 */
         .contact-card h2 {
             color: #8b4513;
-            font-size: 24px;
-            margin-bottom: 15px;
+            font-size: 18px;
+            margin-bottom: 8px;
             position: relative;
             z-index: 1;
         }
@@ -128,9 +128,9 @@
         /* 描述文字 */
         .contact-description {
             color: #666;
-            font-size: 15px;
-            margin-bottom: 40px;
-            line-height: 1.8;
+            font-size: 13px;
+            margin-bottom: 20px;
+            line-height: 1.6;
             position: relative;
             z-index: 1;
         }
@@ -144,14 +144,14 @@
 
         /* 二维码图片 */
         .qr-code-img {
-            width: 200px;
-            height: 280px;
+            width: 180px;
+            height: 250px;
             object-fit: cover;
-            border-radius: 20px;
+            border-radius: 18px;
             box-shadow:
                 0 10px 40px rgba(139, 69, 19, 0.3),
-                0 0 0 8px rgba(255, 255, 255, 1),
-                0 0 0 9px rgba(139, 69, 19, 0.2);
+                0 0 0 6px rgba(255, 255, 255, 1),
+                0 0 0 7px rgba(139, 69, 19, 0.2);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -165,9 +165,9 @@
 
         /* 提示文字 */
         .qr-code-tip {
-            margin-top: 30px;
+            margin-top: 15px;
             color: #8b4513;
-            font-size: 16px;
+            font-size: 13px;
             font-weight: 600;
             position: relative;
             z-index: 1;
@@ -175,8 +175,8 @@
 
         /* 装饰图标 */
         .icon-decoration {
-            font-size: 40px;
-            margin-bottom: 20px;
+            font-size: 30px;
+            margin-bottom: 10px;
             animation: float 3s ease-in-out infinite;
         }
 
@@ -240,21 +240,26 @@
             }
 
             .contact-card {
-                padding: 40px 30px;
-                border-radius: 20px;
+                padding: 15px 10px;
+                border-radius: 15px;
             }
 
             .contact-card h2 {
-                font-size: 20px;
+                font-size: 16px;
             }
 
             .qr-code-img {
-                width: 200px;
-                height: 250px;
+                width: 160px;
+                height: 220px;
             }
 
             .contact-description {
-                font-size: 14px;
+                font-size: 12px;
+            }
+
+            .icon-decoration {
+                font-size: 25px;
+                margin-bottom: 8px;
             }
         }
     </style>
@@ -269,8 +274,7 @@
                 <div class="icon-decoration">🌟</div>
                 <h2>定制解读属于你自己的天赋</h2>
                 <p class="contact-description">
-                    专业天赋解读师为您解析<br>
-                    玛雅历法中的生命密码
+                    专业天赋解读师为您解析
                 </p>
                 <div class="qr-wrapper">
                     <img src="images/wx_1.jpg" alt="天赋解读师微信二维码" class="qr-code-img">
