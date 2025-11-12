@@ -9,73 +9,252 @@
     <title>联系我 - 玛雅天赋印记</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        .contact-section {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-        
-        .contact-item {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            transition: transform 0.3s;
-        }
-        
-        .contact-item:hover {
-            transform: translateY(-5px);
-        }
-        
-        .feedback-section {
-            border-left: 5px solid #8b4513;
-        }
-        
-        .qr-code-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 20px;
-        }
-        
-        .qr-code-img {
-            max-width: 200px;
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
-        }
-        
-        .qr-code-img:hover {
-            transform: scale(1.05);
-        }
-        
-        .qr-code-tip {
-            margin-top: 15px;
-            color: #666;
-            text-align: center;
-            font-size: 14px;
-        }
-        
+        /* 全屏背景图片 */
         body.contact-page {
-            background-image: none;
-            background: linear-gradient(135deg, rgba(247, 243, 255, 1) 0%, rgba(231, 223, 255, 1) 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background-image: url('images/contact.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            position: relative;
         }
-        
-        .nav-icon.phone-icon {
-            color: #7b1fa2;
+
+        /* 深色渐变遮罩 */
+        body.contact-page::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(0, 0, 0, 0.4) 0%,
+                rgba(139, 69, 19, 0.5) 50%,
+                rgba(0, 0, 0, 0.6) 100%
+            );
+            z-index: 0;
         }
-        
-        @media (min-width: 768px) {
-            .contact-section {
-                flex-direction: row;
-                flex-wrap: wrap;
+
+        /* 容器样式 */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px 100px;
+        }
+
+        /* 主标题 - 居中大标题 */
+        body.contact-page h1 {
+            text-align: center;
+            font-size: 36px;
+            color: #fff;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+            margin-bottom: 20px;
+            letter-spacing: 8px;
+            font-weight: 900;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        /* 副标题 */
+        .subtitle {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+            margin-bottom: 60px;
+            letter-spacing: 3px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+        }
+
+        /* 内容区域 */
+        .page-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 60vh;
+        }
+
+        /* 联系卡片 - 居中大卡片 */
+        .contact-card {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 60px 50px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+            text-align: center;
+            animation: fadeInUp 0.8s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 卡片装饰光效 */
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(
+                circle,
+                rgba(255, 215, 0, 0.1) 0%,
+                transparent 70%
+            );
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* 标题 */
+        .contact-card h2 {
+            color: #8b4513;
+            font-size: 24px;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 描述文字 */
+        .contact-description {
+            color: #666;
+            font-size: 15px;
+            margin-bottom: 40px;
+            line-height: 1.8;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 二维码容器 */
+        .qr-wrapper {
+            position: relative;
+            display: inline-block;
+            z-index: 1;
+        }
+
+        /* 二维码图片 */
+        .qr-code-img {
+            width: 200px;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow:
+                0 10px 40px rgba(139, 69, 19, 0.3),
+                0 0 0 8px rgba(255, 255, 255, 1),
+                0 0 0 9px rgba(139, 69, 19, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .qr-code-img:hover {
+            transform: scale(1.05) rotate(-2deg);
+            box-shadow:
+                0 15px 50px rgba(139, 69, 19, 0.4),
+                0 0 0 8px rgba(255, 255, 255, 1),
+                0 0 0 9px rgba(139, 69, 19, 0.3);
+        }
+
+        /* 提示文字 */
+        .qr-code-tip {
+            margin-top: 30px;
+            color: #8b4513;
+            font-size: 16px;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 装饰图标 */
+        .icon-decoration {
+            font-size: 40px;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* 动画 */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
             }
-            
-            .contact-item {
-                flex: 1;
-                min-width: 300px;
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 底部导航栏 */
+        .bottom-nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-icon.phone-icon {
+            color: #8b4513;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            body.contact-page {
+                background-attachment: scroll;
+            }
+
+            body.contact-page h1 {
+                font-size: 28px;
+                letter-spacing: 4px;
+            }
+
+            .subtitle {
+                font-size: 14px;
+                margin-bottom: 40px;
+            }
+
+            .container {
+                padding: 30px 15px 100px;
+            }
+
+            .contact-card {
+                padding: 40px 30px;
+                border-radius: 20px;
+            }
+
+            .contact-card h2 {
+                font-size: 20px;
+            }
+
+            .qr-code-img {
+                width: 200px;
+                height: 250px;
+            }
+
+            .contact-description {
+                font-size: 14px;
             }
         }
     </style>
@@ -83,28 +262,23 @@
 <body class="contact-page">
     <div class="container">
         <h1>九尾羿风 星光皈航</h1>
-        
+        <div class="subtitle">✨ 探索你的玛雅天赋密码 ✨</div>
+
         <div class="page-content">
-            <div class="contact-section">
-                <div class="contact-item">
-                    <h2>定制解读属于你自己的天赋（天赋解读师）</h2>
-                    <div class="placeholder-content">
-                        <img src="images/wx_1.jpg" alt="天赋解读师微信二维码" class="qr-code-img">
-                        <p class="qr-code-tip">扫描二维码添加微信，属于你自己的天赋解读</p>
-                    </div>
-                    </div>
+            <div class="contact-card">
+                <div class="icon-decoration">🌟</div>
+                <h2>定制解读属于你自己的天赋</h2>
+                <p class="contact-description">
+                    专业天赋解读师为您解析<br>
+                    玛雅历法中的生命密码
+                </p>
+                <div class="qr-wrapper">
+                    <img src="images/wx_1.jpg" alt="天赋解读师微信二维码" class="qr-code-img">
                 </div>
-                
-                <!--<div class="contact-item feedback-section">
-                    <h2>问题反馈（工程师--可定制网页）</h2>
-                    <div class="qr-code-container">
-                        <img src="images/wx_2.jpg" alt="开发工程师微信二维码" class="qr-code-img">
-                        <p class="qr-code-tip">扫描二维码添加微信，进行网页功能问题反馈</p>
-                    </div>
-                </div>
+                <p class="qr-code-tip">📱 扫描二维码 · 开启天赋之旅</p>
             </div>
         </div>
-    </div>-->
+    </div>
     
     <!-- 底部导航栏 -->
     <div class="bottom-nav">
